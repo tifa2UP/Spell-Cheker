@@ -5,11 +5,19 @@ public class MainTester {
 
     public static void main(String[] args) {
         //Test add method
-        String a = "1";
-        String b = "12";
+        String a = "A";
+        String b = "B";
+        String c = "C";
+        String d = "D";
         RBTree tree1 = new RBTree();
         tree1.add(a);
         tree1.add(b);
-        tree1.print();
+        tree1.add(d);
+        tree1.add(c);
+        System.out.println(c.compareTo(a));
+        System.out.println(tree1.print());
+        System.out.println(tree1.find("C"));
+
+
     }
 }

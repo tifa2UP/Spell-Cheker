@@ -48,32 +48,30 @@ public class RBTree {
 
 
     /**
-     * Prints out the whole tree using pre-order traversal
+     * Returns a String that represent the contents of the whole tree using pre-order traversal
+     * Separated by a "-"
      */
-    public void print(){
-        print(root);
+    public String print(){
+        return print(root);
     }
 
     /**
      * prints out a subtree of a given node using pre-order traversal
      * @param n the root node of a given subtree
      */
-    public void print(Node n){
+    public String print(Node n){
         // a base case when the node is empty
         if (n == null){
-            return;
+            return "";
         }
         // a base case for the recursive call when the node is a leaf
-        if (n.left == null && n.right == null){
-            System.out.println(n.data);
-            return;
+        else if (n.left == null && n.right == null){
+            return n.data.toString() + "-";
         }
-        // prints out the root
-        System.out.println(n.data);
-        // traverse and print out the left subtree
-        print(n.left);
-        //traverse and print out the right subtree
-        print(n.right);
+        // prints out the root then traverse and print out the left subtree then the right subtree
+        else {
+            return (String) n.data.toString() + "-" + print(n.left) + print(n.right);
+        }
     }
 
     /**
@@ -93,22 +91,30 @@ public class RBTree {
      */
     public boolean find(Node n, Comparable object){
         //return false if the tree is empty
-        if ( root == null){
+        if ( n == null){
             return false;
         }
         //checks if the the current node is holding the object
-        if (n.data.equals(object)){
+        else if (n.data.equals(object)){
             return true;
         }
-        else if(n.right == null && n.left == null){
-            //there are no more nodes to search, the item doesn't exist
-        }
+
         else{
             //if the object is not the same as the node search each of its children
-            find(n.left,object);
-            find(n.right,object);
+            if (object.compareTo(n.data) < 0){
+                if (n.left  == null){
+                    return false;
+                }
+                find(n.left,object);
+            }
+            else{
+                if (n.right  == null){
+                    return false;
+                }
+                find(n.right,object);
+            }
         }
-        return false;
+            return false;
     }
 
     /**
