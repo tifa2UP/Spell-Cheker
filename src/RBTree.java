@@ -2,6 +2,8 @@
  * Created by Abdellatif on 10/24/2015.
  */
 
+import java.util.Comparator;
+
 /**
  * Red Black trees data structure implementation and methods
  */
@@ -117,6 +119,48 @@ public class RBTree {
             return false;
     }
 
+    /**
+     * returns the node that holds the given object in a RBTree
+     * @param object the object to look for
+     * @return the node that contains the object
+     */
+    public Node findNode(Comparable object){
+        return findNode(root,object);
+    }
+
+    /**
+     *
+     * @param n the node to start searching from
+     * @param object the object to look for
+     * @return the node that contains the object
+     */
+    private Node findNode(Node n, Comparable object){
+        //return null if the tree is empty
+        if ( n == null){
+            return null;
+        }
+        //checks if the the current node is holding the object
+        else if (n.data.equals(object)){
+            return n;
+        }
+
+        else{
+            //if the object is not the same as the node search each of its children
+            if (object.compareTo(n.data) < 0){
+                if (n.left  == null){
+                    return null;
+                }
+                find(n.left,object);
+            }
+            else{
+                if (n.right  == null){
+                    return null;
+                }
+                find(n.right,object);
+            }
+        }
+        return null;
+    }
     /**
      * Add an object to the RBTree
      * @param object the object to add
