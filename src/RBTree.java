@@ -59,6 +59,10 @@ public class RBTree {
      * @param n the root node of a given subtree
      */
     public void print(Node n){
+        // a base case when the node is empty
+        if (n == null){
+            return;
+        }
         // a base case for the recursive call when the node is a leaf
         if (n.left == null && n.right == null){
             System.out.println(n.data);
@@ -88,8 +92,11 @@ public class RBTree {
      * @return true if the object exists, false if it doesn't
      */
     public boolean find(Node n, Comparable object){
+        //return false if the tree is empty
+        if ( root == null){
+            return false;
+        }
         //checks if the the current node is holding the object
-
         if (n.data.equals(object)){
             return true;
         }
@@ -109,16 +116,22 @@ public class RBTree {
      * @param object the object to add
      */
     public void add(Comparable object){
-        //if the object exists do not add it
-        if (find(object)){
-            return;
-        }
-
         //create a new node with the given object
         Node newNode = new Node();
         newNode.data = object;
         newNode.right = null;
         newNode.left = null;
+
+        //adds the object to the root if the tree is empty
+        if (root == null){
+            root = newNode;
+        }
+        //if the object exists do not add it
+        if (find(object)){
+            return;
+        }
+
+
 
         //initiates a node to start the search
         Node node = root;
@@ -128,9 +141,10 @@ public class RBTree {
          */
         while(true){
             //if the object is smaller than the node search the left subtree
-            if (object.compareTo(node) < 0){
+            if (object.compareTo(node.data) < 0){
                 if (node.left == null){
                     node.left = newNode;
+                    break;
                 }
                 else {
                     node = node.left;
@@ -140,6 +154,7 @@ public class RBTree {
             else {
                 if (node.right == null){
                     node.right = newNode;
+                    break;
                 }
                 node = node.right;
             }
