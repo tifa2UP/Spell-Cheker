@@ -17,7 +17,7 @@ public class RBTree {
     }
 
     /**
-     * Constructs a RBTree
+     * Constructs a RBTree with a given root data
      * @param data the Comparable object that the root will be holding
      */
     public RBTree(Comparable data){
@@ -55,7 +55,7 @@ public class RBTree {
     }
 
     /**
-     * prints out a subtree of a given node
+     * prints out a subtree of a given node using pre-order traversal
      * @param n the root node of a given subtree
      */
     public void print(Node n){
@@ -78,7 +78,7 @@ public class RBTree {
      * @return true if the object exists, false if it doesn't
      */
     public boolean find(Comparable object){
-        return false;
+        return find(root, object);
     }
 
     /**
@@ -94,10 +94,10 @@ public class RBTree {
             return true;
         }
         else if(n.right == null && n.left == null){
-
+            //there are no more nodes to search, the item doesn't exist
         }
         else{
-            //if not search each of his children
+            //if the object is not the same as the node search each of its children
             find(n.left,object);
             find(n.right,object);
         }
@@ -120,10 +120,29 @@ public class RBTree {
         newNode.right = null;
         newNode.left = null;
 
-        //finds the location for the new node and then adds it
-        //Create an infinite loop that breaks when the suitable position for the new object is found
-        //This algorithm is created such that the loop MUST break
+        //initiates a node to start the search
+        Node node = root;
+        /** Finds the location for the new node and then adds it
+        Create an infinite loop that breaks when the suitable position for the new object is found
+        This algorithm is created such that the loop MUST break
+         */
         while(true){
+            //if the object is smaller than the node search the left subtree
+            if (object.compareTo(node) < 0){
+                if (node.left == null){
+                    node.left = newNode;
+                }
+                else {
+                    node = node.left;
+                }
+            }
+            //else, the object is greater than the node, search the right subtree
+            else {
+                if (node.right == null){
+                    node.right = newNode;
+                }
+                node = node.right;
+            }
 
         }
     }
