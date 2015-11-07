@@ -161,6 +161,16 @@ public class RBTree {
         }
         return null;
     }
+
+    /**
+     * Sets a node to be equal to the other
+     * @param n1
+     * @param n2
+     */
+    private void setNode(Node n1, Node n2){
+
+    }
+
     /**
      * Add an object to the RBTree
      * @param object the object to add
@@ -217,8 +227,10 @@ public class RBTree {
      * @param object the object to remove
      */
     public void remove(Comparable object){
+        //TODO: fix remove
         //Finds the node with the data to remove
         Node n = findNode(object);
+
         if (n == null){
             //if the node doesn't exist exit the function
             return;
@@ -239,10 +251,12 @@ public class RBTree {
         //Case 4: the node has two children
         else{
             //replace the node with the successor
+            Comparable temp = n.data;
             Node successor = successor(n);
             n.data = successor.data;
+            successor.data = temp;
             //delete the successor
-            successor = null;
+            remove(temp);
         }
 
     }
