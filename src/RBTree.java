@@ -116,7 +116,7 @@ public class RBTree {
                 find(n.right,object);
             }
         }
-            return false;
+        return false;
     }
 
     /**
@@ -186,8 +186,8 @@ public class RBTree {
         //initiates a node to start the search
         Node node = root;
         /** Finds the location for the new node and then adds it
-        Create an infinite loop that breaks when the suitable position for the new object is found
-        This algorithm is created such that the loop MUST break
+         Create an infinite loop that breaks when the suitable position for the new object is found
+         This algorithm is created such that the loop MUST break
          */
         while(true){
             //if the object is smaller than the node search the left subtree
@@ -213,13 +213,52 @@ public class RBTree {
     }
 
     /**
-     *
-     * @param object
+     * removes a given object data from the RBTree
+     * @param object the object to remove
      */
     public void remove(Comparable object){
+        //Finds the node with the data to remove
+        Node n = findNode(object);
+        if (n == null){
+            //if the node doesn't exist exit the function
+            return;
+        }
+        //Case 1: The node has no children
+        if (n.left == null && n.right == null){
+            //remove the node
+            n = null;
+        }
+        //Case 2: The node has only a left child
+        else if (n.left != null && n.right == null){
+            n = n.left;
+        }
+        //Case 3: The node has only a right child
+        else if (n.left == null && n.right != null){
+            n = n.right;
+        }
+        //Case 4: the node has two children
+        else{
+            //replace the node with the successor
+            Node successor = successor(n);
+            n.data = successor.data;
+            //delete the successor
+            successor = null;
+        }
 
     }
 
+    /**
+     * Finds the successor of a given node
+     * @param n
+     * @return return null if the successor doesn't exist
+     */
+    public Node successor(Node n){
+        Node successor = n.right;
+        while (successor.left != null){
+            successor = successor.left;
+        }
+        return successor;
+    }
     // ===============================================================
 
     // The node inner class
