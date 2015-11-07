@@ -10,8 +10,4 @@ public class RBTreeTest {
 
     }
 
-    @org.junit.After
-    public void tearDown() throws Exception {
-
-    }
 }
