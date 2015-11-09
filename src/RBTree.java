@@ -282,6 +282,8 @@ public class RBTree {
         public Node left;
         //Specifies the comparable object the node is holding
         public Comparable data;
+        //Specifies the color of the Node, true for red false for black
+        public boolean red;
     }
 }
 
