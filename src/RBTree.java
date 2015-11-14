@@ -162,14 +162,7 @@ public class RBTree {
         return null;
     }
 
-    /**
-     * Sets a node to be equal to the other
-     * @param n1
-     * @param n2
-     */
-    private void setNode(Node n1, Node n2){
 
-    }
 
     /**
      * Add an object to the RBTree
@@ -181,17 +174,19 @@ public class RBTree {
         newNode.data = object;
         newNode.right = null;
         newNode.left = null;
+        newNode.red = true;
 
         //adds the object to the root if the tree is empty
         if (root == null){
+            // the RBTree root should always have a black color
+            newNode.red = false;
             root = newNode;
+            return;
         }
         //if the object exists do not add it
         if (find(object)){
             return;
         }
-
-
 
         //initiates a node to start the search
         Node node = root;
@@ -220,46 +215,73 @@ public class RBTree {
             }
 
         }
+        fixTree();
     }
 
     /**
-     * removes a given object data from the RBTree
-     * @param object the object to remove
+     * Fixes the RBTree
      */
-    public void remove(Comparable object){
-        //TODO: fix remove
-        //Finds the node with the data to remove
-        Node n = findNode(object);
-
-        if (n == null){
-            //if the node doesn't exist exit the function
+    public void fixTree(){
+        //do nothing if the tree is already fixed
+        if (isFixed()){
             return;
         }
-        //Case 1: The node has no children
-        if (n.left == null && n.right == null){
-            //remove the node
-            n = null;
-        }
-        //Case 2: The node has only a left child
-        else if (n.left != null && n.right == null){
-            n = n.left;
-        }
-        //Case 3: The node has only a right child
-        else if (n.left == null && n.right != null){
-            n = n.right;
-        }
-        //Case 4: the node has two children
+        //else fix the tree
         else{
-            //replace the node with the successor
-            Comparable temp = n.data;
-            Node successor = successor(n);
-            n.data = successor.data;
-            successor.data = temp;
-            //delete the successor
-            remove(temp);
+            
         }
-
     }
+
+    /**
+     * Checks if the RBTree is fixed
+     * @return true if the tree is fixed and false otherwise
+     */
+    public boolean isFixed(){
+        return false;
+    }
+
+    // ===============================================
+    // Since the remove method isn't applicable in a
+    // dictionary application I've commented it out
+    // ===============================================
+
+//    /**
+//     * removes a given object data from the RBTree
+//     * @param object the object to remove
+//     */
+//    public void remove(Comparable object){
+//        //Finds the node with the data to remove
+//        Node n = findNode(object);
+//
+//        if (n == null){
+//            //if the node doesn't exist exit the function
+//            return;
+//        }
+//        //Case 1: The node has no children
+//        if (n.left == null && n.right == null){
+//            //remove the node
+//            n = null;
+//        }
+//        //Case 2: The node has only a left child
+//        else if (n.left != null && n.right == null){
+//            n = n.left;
+//        }
+//        //Case 3: The node has only a right child
+//        else if (n.left == null && n.right != null){
+//            n = n.right;
+//        }
+//        //Case 4: the node has two children
+//        else{
+//            //replace the node with the successor
+//            Comparable temp = n.data;
+//            Node successor = successor(n);
+//            n.data = successor.data;
+//            successor.data = temp;
+//            //delete the successor
+//            remove(temp);
+//        }
+//
+//    }
 
     /**
      * Finds the successor of a given node
