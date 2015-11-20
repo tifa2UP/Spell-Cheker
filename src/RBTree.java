@@ -252,7 +252,7 @@ public class RBTree {
             else{
                 parent.right = newNode;
             }
-            fixTree(newNode);
+            rbInsertFixUp(newNode);
         }
 
     }
@@ -290,59 +290,123 @@ public class RBTree {
         }
     }
 
+    public void preOrderPrint(){
+        preOrderPrint(root);
+        System.out.println();
+    }
+    public void preOrderPrint(Node n){
+        if (n == null){
+            return;
+        }
+        System.out.print(n.data + "-");
+        preOrderPrint(n.left);
+        preOrderPrint(n.right);
+    }
 
     /**
-     * Fixes the RBTree at a specific node
+     * After many errors and trials I decided not to act smart and use the book's implementation
      *
      */
-    public void fixTree(Node node) {
-        if (node.parent == null){
-            root = node;
-            root.red = false;
-            return;
-        }
-        if (getSibling(node) == null && node.parent.red == false){
-            return;
-        }
-        if(node.parent.red == false && getSibling(node).red){
-            //do nothing
-            return;
+    public void rbInsertFixUp(Node node)
+    {
+        Node y;
+        while(node.parent.red == false)
+        {
+            if(node.parent == getGrandparent(node).left){
+                y = getGrandparent(node).right;
+                if(y.red == false){
+                    node.parent.red = true;
+                    y.red = true;
+                    getGrandparent(node).red = false;
+                    node = getGrandparent(node);
+                }else
+                {
+                    if(node == node.parent.right)
+                    {
+                        node = node.parent;
+                       rotateLeft(node);
+                    }
+                    node.parent.red = true;
+                   getGrandparent(node).red = false;
+                    rotateRight(getGrandparent(node));
+
+                }
+            }else{
+                y = getGrandparent(node).left;
+                if(y.red == false){
+                    node.parent.red  = true;
+                    y.red = true;
+                    getGrandparent(node).red = false;
+                    node = getGrandparent(node);
+                }else
+                {
+                    if(node == node.parent.left)
+                    {
+                        node = node.parent;
+                       rotateRight(node);
+                    }
+                    node.parent.red  = true;
+                    getGrandparent(node).red = false;
+                    rotateLeft(getGrandparent(node));
+                }
+            }
         }
 
-        else if(node.parent.red){
-            //case 1
-            //aunt is red
-            if (getAunt(node) != null && getAunt(node).red) {
-                node.parent.red = false;
-                getAunt(node).red = false;
-                return;
-            }
-            else if (getGrandparent(node) != null && getGrandparent(node).left == node.parent && node == node.parent.left){
-                rotateRight(node.parent);
-                return;
-            }
-            else if (getGrandparent(node) != null && getGrandparent(node).right == node.parent && node == node.parent.right){
-                rotateLeft(node.parent);
-                return;
-            }
-            else if (getGrandparent(node) != null && getGrandparent(node).right == node.parent && node == node.parent.left){
-                node.parent.right = node;
-                node.parent.left = null;
-                rotateLeft(node.parent);
-                return;
-            }  else if (getGrandparent(node) != null && getGrandparent(node).left == node.parent && node == node.parent.right){
-                Comparable temp = node.parent.data;
-                node.parent.data = node.parent.right.data;
-                node.parent.right.data = temp;
-                node.parent.left = node;
-                node.parent.right = null;
-                System.out.println("reached left right");
-                rotateRight(node.parent);
-                return;
-            }
-
-        }
+        root.red = false;
     }
+
+//    /**
+//     * Fixes the RBTree at a specific node
+//     *
+//     */
+//    public void fixTree(Node node) {
+//        if (node.parent == null){
+//            root = node;
+//            root.red = false;
+//            return;
+//        }
+//        if (getSibling(node) == null && node.parent.red == false){
+//            return;
+//        }
+//        if(node.parent.red == false && getSibling(node).red){
+//            //do nothing
+//            return;
+//        }
+//
+//        else if(node.parent.red){
+//            //case 1
+//            //aunt is red
+//            if (getAunt(node) != null && getAunt(node).red) {
+//                node.parent.red = false;
+//                getAunt(node).red = false;
+//                return;
+//            }
+//            else if (getGrandparent(node) != null && getGrandparent(node).left == node.parent && node == node.parent.left){
+//                rotateRight(node.parent);
+//                return;
+//            }
+//            else if (getGrandparent(node) != null && getGrandparent(node).right == node.parent && node == node.parent.right){
+//                rotateLeft(node.parent);
+//                return;
+//            }
+//            else if (getGrandparent(node) != null && getGrandparent(node).right == node.parent && node == node.parent.left){
+//                node.parent.right = node;
+//                node.parent.left = null;
+//                rotateLeft(node.parent);
+//                return;
+//            }  else if (getGrandparent(node) != null && getGrandparent(node).left == node.parent && node == node.parent.right){
+//                Comparable temp = node.parent.data;
+//                node.parent.data = node.parent.right.data;
+//                node.parent.right.data = temp;
+//                node.parent.left = node;
+//                node.parent.right = null;
+//                System.out.println("reached left right");
+//                rotateRight(node.parent);
+//                return;
+//            }
+//
+//        }
+//    }
     private void rotateLeft(Node node){
       Node y;
         if (node.right == null){
