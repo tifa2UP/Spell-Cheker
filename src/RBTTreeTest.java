@@ -2,6 +2,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 
 public class RBTTreeTest {
 
@@ -25,7 +29,16 @@ public class RBTTreeTest {
     }
 
     @Test
-    public void testDictionary(){
-
+    public void testDictionary() throws FileNotFoundException{
+        RBTree dictionaryTree = new RBTree();
+        File dictionary = new File("dictionary.txt");
+        Scanner input = new Scanner(dictionary);
+        while (input.hasNext()){
+//            System.out.println(input.next());
+        dictionaryTree.add(input.next());
+        }
+        assertEquals(dictionaryTree.find("ijaaz"), false);
+        assertEquals(dictionaryTree.find("aerospace"), true);
+        //add a bunch of tests
     }
 }

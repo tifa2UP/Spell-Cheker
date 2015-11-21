@@ -252,7 +252,7 @@ public class RBTree {
             else{
                 parent.right = newNode;
             }
-            rbInsertFixUp(newNode);
+            fixTree(newNode);
         }
 
     }
@@ -307,7 +307,7 @@ public class RBTree {
      * After many errors and trials I decided not to act smart and use the book's implementation
      *
      */
-    public void rbInsertFixUp(Node node)
+    public void fixTree(Node node)
     {
         Node y;
         while(node.parent.red == false)
@@ -352,7 +352,7 @@ public class RBTree {
             }
         }
 
-        root.red = false;
+        root.red = true;
     }
 
 //    /**
