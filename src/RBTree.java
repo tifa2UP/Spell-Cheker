@@ -75,7 +75,8 @@ public class RBTree {
             return (String) n.data.toString() + "-" + print(n.left) + print(n.right);
         }
     }
-    //TODO: do not allow duplicates
+
+    //TODO: (optional) do not allow duplicates
     /**
      * Checks if an object is saved in the RBTree
      * @param object the to look for
@@ -91,6 +92,7 @@ public class RBTree {
      * @param object the object to look for
      * @return true if the object exists, false if it doesn't
      */
+
     public boolean find(Node n, Comparable object){
         //return false if the tree is empty
         if ( n == null){
@@ -162,7 +164,10 @@ public class RBTree {
         return null;
     }
 
-
+    /**
+     * Adds a new node to the RBTree
+     * @param object
+     */
     public void add(Comparable object) {
         //create a new node with the given object
         Node newNode = new Node();
@@ -172,11 +177,12 @@ public class RBTree {
         newNode.red = true;
         Node parent = root;
         Node currentNode = root;
-
+        // make the new node the root if the tree is empty
         if (root == null){
             root = newNode;
         }
         else{
+            //Add the new node at the correct position
             while (currentNode != null) {
                 parent = currentNode;
                 if (object.compareTo(currentNode.data) < 0) {
@@ -195,11 +201,12 @@ public class RBTree {
             else{
                 parent.right = newNode;
             }
+            //maintain the RBTree
             fixTree(newNode);
         }
-
     }
 
+    //gets the other node from the same parent
     public Node getSibling(Node node){
         if (node == null || node.parent == null){
             return null;
@@ -211,6 +218,12 @@ public class RBTree {
             return node.parent.left;
         }
     }
+
+    /**
+     * gets the other child node of the Node's grandParent
+     * @param node the node to call the method on
+     * @return the resultant node reference
+     */
 
     public Node getAunt(Node node){
         if (node == null || node.parent == null || node.parent.parent == null){
@@ -294,7 +307,6 @@ public class RBTree {
                 }
             }
         }
-
         root.red = true;
     }
 
@@ -338,6 +350,7 @@ public class RBTree {
      * @param n
      * @return return null if the successor doesn't exist
      */
+
     public Node successor(Node n){
         Node successor = n.right;
         while (successor.left != null){
@@ -358,6 +371,8 @@ public class RBTree {
         preOrderVisit(n.left, v);
         preOrderVisit(n.right, v);
     }
+
+
     public static interface Visitor
     {
         /**
