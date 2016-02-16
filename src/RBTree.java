@@ -163,63 +163,6 @@ public class RBTree {
     }
 
 
-//
-//    /**
-//     * Add an object to the RBTree
-//     * @param object the object to add
-//     */
-//    public void add(Comparable object){
-//        //create a new node with the given object
-//        Node newNode = new Node();
-//        newNode.data = object;
-//        newNode.right = null;
-//        newNode.left = null;
-//        newNode.parent = null;
-//        newNode.red = true;
-//
-//        //adds the object to the root if the tree is empty
-//        if (root == null){
-//            // the RBTree root should always have a black color
-//            newNode.red = false;
-//            root = newNode;
-//            return;
-//        }
-//        //if the object exists do not add it
-//        if (find(object)){
-//            return;
-//        }
-//        // ===================================================================================
-//        //initiates a node to start the search
-//        Node node = root;
-//        /** Finds the location for the new node and then adds it
-//         Create an infinite loop that breaks when the suitable position for the new object is found
-//         This algorithm is created such that the loop MUST break
-//         */
-//        while(true){
-//            //if the object is smaller than the node search the left subtree
-//            if (object.compareTo(node.data) < 0){
-//                if (node.left == null){
-//                    node.left = newNode;
-//                    break;
-//                }
-//                else {
-//                    node = node.left;
-//                }
-//            }
-//            //else, the object is greater than the node, search the right subtree
-//            else {
-//                if (node.right == null){
-//                    node.right = newNode;
-//                    break;
-//                }
-//                node = node.right;
-//            }
-//
-//        }
-//        fixTree(newNode);
-//        // ======================================================================================
-//    }
-
     public void add(Comparable object) {
         //create a new node with the given object
         Node newNode = new Node();
@@ -355,58 +298,7 @@ public class RBTree {
         root.red = true;
     }
 
-//    /**
-//     * Fixes the RBTree at a specific node
-//     *
-//     */
-//    public void fixTree(Node node) {
-//        if (node.parent == null){
-//            root = node;
-//            root.red = false;
-//            return;
-//        }
-//        if (getSibling(node) == null && node.parent.red == false){
-//            return;
-//        }
-//        if(node.parent.red == false && getSibling(node).red){
-//            //do nothing
-//            return;
-//        }
-//
-//        else if(node.parent.red){
-//            //case 1
-//            //aunt is red
-//            if (getAunt(node) != null && getAunt(node).red) {
-//                node.parent.red = false;
-//                getAunt(node).red = false;
-//                return;
-//            }
-//            else if (getGrandparent(node) != null && getGrandparent(node).left == node.parent && node == node.parent.left){
-//                rotateRight(node.parent);
-//                return;
-//            }
-//            else if (getGrandparent(node) != null && getGrandparent(node).right == node.parent && node == node.parent.right){
-//                rotateLeft(node.parent);
-//                return;
-//            }
-//            else if (getGrandparent(node) != null && getGrandparent(node).right == node.parent && node == node.parent.left){
-//                node.parent.right = node;
-//                node.parent.left = null;
-//                rotateLeft(node.parent);
-//                return;
-//            }  else if (getGrandparent(node) != null && getGrandparent(node).left == node.parent && node == node.parent.right){
-//                Comparable temp = node.parent.data;
-//                node.parent.data = node.parent.right.data;
-//                node.parent.right.data = temp;
-//                node.parent.left = node;
-//                node.parent.right = null;
-//                System.out.println("reached left right");
-//                rotateRight(node.parent);
-//                return;
-//            }
-//
-//        }
-//    }
+
     private void rotateLeft(Node node){
       Node y;
         if (node.right == null){
@@ -434,109 +326,12 @@ public class RBTree {
     }
 
     public void rotateRight(Node h){
-//        Node y = node.left;
-//        node.left = y.right;
-//        if(y.right != null){
-//            y.right.parent = node;
-//        }
-//        y.parent = node.parent;
-//        if(node.parent == null){
-//            root = y;
-//        }
-//        else if(node == node.parent.right){
-//            node.parent.right = y;
-//        }else{
-//            node.parent.left = y;
-//        }
-//        y.right = node;
-//        node.parent = y;
-// assert (h != null) && isRed(h.left);
         Node x = h.left;
         h.left = x.right;
         x.right = h;
         x.red = x.right.red;
         x.right.red = true;
-//        x.N = h.N;
-//        h.N = size(h.left) + size(h.right) + 1;
-
     }
-
-
-//    /**
-//     * Checks if the RBTree is fixed
-//     * @return true if the tree is fixed and false otherwise
-//     */
-//    public boolean isFixed(){
-//        Boolean fixed = true;
-//        //if the root has a black color then it isn't fixed
-//        if (root.red){
-//            fixed = false;
-//        }
-//        //checks if the tree violates redHasBlackChildren()
-//        else if(!redHasBlackChildren()){
-//            fixed = false;
-//        }
-//        //TODO: remove this method
-////
-////        else if (!balancedBlackHeight()){
-////            fixed = false;
-////        }
-//        return fixed;
-//    }
-
-//    /**
-//     * Checks if each red node has black children
-//     * @return true if there is no violation
-//     */
-//    private boolean redHasBlackChildren(){
-//        //TODO: implement the method
-//        return false;
-//    }
-
-
-
-    // ===============================================
-    // Since the remove method isn't applicable in a
-    // dictionary application I've commented it out
-    // ===============================================
-
-//    /**
-//     * removes a given object data from the RBTree
-//     * @param object the object to remove
-//     */
-//    public void remove(Comparable object){
-//        //Finds the node with the data to remove
-//        Node n = findNode(object);
-//
-//        if (n == null){
-//            //if the node doesn't exist exit the function
-//            return;
-//        }
-//        //Case 1: The node has no children
-//        if (n.left == null && n.right == null){
-//            //remove the node
-//            n = null;
-//        }
-//        //Case 2: The node has only a left child
-//        else if (n.left != null && n.right == null){
-//            n = n.left;
-//        }
-//        //Case 3: The node has only a right child
-//        else if (n.left == null && n.right != null){
-//            n = n.right;
-//        }
-//        //Case 4: the node has two children
-//        else{
-//            //replace the node with the successor
-//            Comparable temp = n.data;
-//            Node successor = successor(n);
-//            n.data = successor.data;
-//            successor.data = temp;
-//            //delete the successor
-//            remove(temp);
-//        }
-//
-//    }
 
     /**
      * Finds the successor of a given node

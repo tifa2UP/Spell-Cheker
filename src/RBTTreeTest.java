@@ -37,6 +37,7 @@ public class RBTTreeTest {
 //            System.out.println(input.next());
         dictionaryTree.add(input.next());
         }
+//        dictionaryTree.preOrderPrint();
         assertEquals(dictionaryTree.find("ijaaz"), false);
         assertEquals(dictionaryTree.find("aerospace"), true);
         //add a bunch of tests
