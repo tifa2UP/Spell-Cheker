@@ -237,6 +237,11 @@ public class RBTree {
         }
     }
 
+    /**
+     * gets the grandparent of a node
+     * @param node the grandparent of the given
+     * @return the grandparent of a node
+     */
     public Node getGrandparent(Node node){
         if (node == null || node.parent == null || node.parent.parent == null){
             return null;
@@ -246,6 +251,9 @@ public class RBTree {
         }
     }
 
+    /**
+     * prints the RBTree using pre-order traversal
+     */
     public void preOrderPrint(){
         preOrderPrint(root);
         System.out.println();
