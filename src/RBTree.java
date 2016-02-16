@@ -76,7 +76,7 @@ public class RBTree {
         }
     }
 
-    //TODO: (optional) do not allow duplicates
+
     /**
      * Checks if an object is saved in the RBTree
      * @param object the to look for
@@ -169,6 +169,7 @@ public class RBTree {
      * @param object
      */
     public void add(Comparable object) {
+        //TODO: (optional) do not allow duplicates
         //create a new node with the given object
         Node newNode = new Node();
         newNode.data = object;

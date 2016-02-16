@@ -31,18 +31,18 @@ public class RBTTreeTest {
 
     }
 
-//    @Test
-//    public void testDictionary() throws FileNotFoundException{
-//        RBTree dictionaryTree = new RBTree();
-//        File dictionary = new File("dictionary.txt");
-//        Scanner input = new Scanner(dictionary);
-//        while (input.hasNext()){
-////            System.out.println(input.next());
-//        dictionaryTree.add(input.next());
-//        }
-////        dictionaryTree.preOrderPrint();
-//        assertEquals(dictionaryTree.find("ijaaz"), false);
-//        assertEquals(dictionaryTree.find("aerospace"), true);
-//        //add a bunch of tests
-//    }
+    @Test
+    public void testDictionary() throws FileNotFoundException{
+        RBTree dictionaryTree = new RBTree();
+        File dictionary = new File("USRA_Family.txt");
+        Scanner input = new Scanner(dictionary);
+        while (input.hasNext()){
+//            System.out.println(input.next());
+        dictionaryTree.add(input.next());
+        }
+//        dictionaryTree.preOrderPrint();
+        assertEquals(dictionaryTree.find("ijaaz"), false);
+        assertEquals(dictionaryTree.find("Abdellatif"), true);
+        //add a bunch of tests
+    }
 }
