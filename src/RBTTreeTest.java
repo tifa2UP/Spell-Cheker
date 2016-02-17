@@ -24,9 +24,6 @@ public class RBTTreeTest {
         rbt.add("J");
 
         //DBACFEHGIJ
-        System.out.println(rbt.print());
-        System.out.println(rbt.find("D"));
-        System.out.println(rbt.find("Abdellatif"));
         assertEquals(rbt.print(),"D-B-A-C-F-E-H-G-I-J-");
 
     }
