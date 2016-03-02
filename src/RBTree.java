@@ -93,6 +93,8 @@ public class RBTree {
      * @return true if the object exists, false if it doesn't
      */
 
+    //a test comment
+
     public boolean find(Node n, Comparable object){
         //return false if the tree is empty
         if ( n == null){
@@ -120,7 +122,7 @@ public class RBTree {
         }
         return false;
     }
-
+    
     /**
      * returns the node that holds the given object in a RBTree
      * @param object the object to look for
