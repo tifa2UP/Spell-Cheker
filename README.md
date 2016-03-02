@@ -1,3 +1,3 @@
-# Red-Black-Trees
+# Spell Checker
 
-Your standard Red-Black Tree implemented in *Java*
+A *Java* spell checker program implemented using the Red-Black Tree data structure
